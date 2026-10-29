@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Mapa{% endblock %} · {{ conjunto }}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-in">
+      <a class="brand" href="{{ url_for('mapa') }}">
+        <img class="brand-logo" src="{{ url_for('static', filename='img/logo-icono.png') }}" alt="" width="40" height="52">
+        <span class="brand-name"><strong>TERRA <em>CASTILLA</em></strong><small>{{ subtitulo }}</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="{{ url_for('mapa') }}" class="{{ 'active' if request.endpoint == 'mapa' }}">Mapa</a>
+        <a href="{{ url_for('opina') }}" class="{{ 'active' if request.endpoint == 'opina' }}">¿Qué deberíamos colocar?</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% for cat, m in mensajes %}<div class="flash flash-{{ cat }}">{{ m }}</div>{% endfor %}
+    {% endwith %}
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-in">
+      <img src="{{ url_for('static', filename='img/logo-icono.png') }}" alt="" width="34" height="44">
+      <div>
+        <p>Las distancias se calculan sobre las calles de OpenStreetMap con el algoritmo de Dijkstra y son <strong>referenciales</strong>.</p>
+        <p><a href="{{ url_for('estado') }}">Estado del sistema</a></p>
+      </div>
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

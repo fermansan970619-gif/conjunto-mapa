@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Administración{% endblock %}
+{% block contenido %}
+<h1>Administración</h1>
+
+<div class="cards">
+  <div class="card">
+    <h2>Estado</h2>
+    <p>Sitios cargados: <strong>{{ total }}</strong></p>
+    <p>Punto central: <code>{{ centro[0] }}, {{ centro[1] }}</code>
+      <span class="badge {{ 'badge-ok' if confirmado else 'badge-warn' }}">{{ 'confirmado' if confirmado else 'provisional' }}</span></p>
+    <p>Red vial (Dijkstra):
+      <span class="badge {{ 'badge-ok' if red.disponible else 'badge-bad' }}">{{ 'lista' if red.disponible else 'no disponible' }}</span></p>
+    <p class="muted small">{{ red.mensaje }}{% if red.disponible %} ({{ red.nodos }} esquinas){% endif %}</p>
+  </div>
+
+  {% if habilitado %}
+  <form class="card" method="post" action="{{ url_for('admin_importar') }}" enctype="multipart/form-data">
+    <h2>Importar sitios</h2>
+    <p><a href="{{ url_for('plantilla') }}">Descargar plantilla Excel</a></p>
+    <label>Clave de administración<input type="password" name="token" required autocomplete="current-password"></label>
+    <label>Archivo (.xlsx, .csv o .geojson)<input type="file" name="archivo" accept=".xlsx,.csv,.geojson,.json" required></label>
+    <label>Modo
+      <select name="modo"><option value="agregar">Agregar a los existentes</option><option value="reemplazar">Reemplazar todos</option></select>
+    </label>
+    <button class="btn">Importar</button>
+  </form>
+  {% else %}
+  <div class="card"><h2>Importar sitios</h2>
+    <div class="aviso">Deshabilitado. Defina la variable de entorno <code>ADMIN_TOKEN</code> y reinicie, o edite directamente <code>data/sitios.xlsx</code>.</div></div>
+  {% endif %}
+</div>
+{% endblock %}

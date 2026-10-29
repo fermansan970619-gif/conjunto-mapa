@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titulo %}Mapa{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet/leaflet.css') }}">{% endblock %}
+{% block contenido %}
+<h1>Sitios de interés cerca del conjunto</h1>
+{% if not centro_confirmado %}
+<div class="aviso"><strong>Versión de prueba:</strong> el punto central del conjunto es provisional, por lo que las distancias son solo de ejemplo.</div>
+{% endif %}
+<div class="barra-mapa">
+  <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+  {% if enlace_agregar %}<a class="btn" href="{{ enlace_agregar }}" target="_blank" rel="noopener">➕ Agregar un sitio</a>{% endif %}
+</div>
+<div id="aviso-nuevo" class="aviso-nuevo" role="status" hidden></div>
+
+<div class="mapa-layout">
+  <div id="mapa" data-zoom="{{ zoom }}" data-refresco="{{ refresco }}" aria-label="Mapa de sitios de interés"></div>
+
+  <aside class="panel" aria-live="polite">
+    <section id="panel-lista">
+      <h2 id="lista-titulo">Sitios</h2>
+      <p class="muted">Toque un punto del mapa o un sitio de la lista para ver el detalle y la distancia desde el conjunto.</p>
+      <ul id="lista-sitios" class="lista-sitios"></ul>
+    </section>
+
+    <section id="panel-detalle" hidden>
+      <button type="button" class="volver" id="volver">← Volver a la lista</button>
+      <span class="badge" id="d-categoria"></span>
+      <h2 id="d-nombre"></h2>
+
+      <div class="distancia">
+        <div class="modos" role="group" aria-label="Forma de desplazarse">
+          <button type="button" data-modo="a_pie" aria-pressed="true">🚶 A pie</button>
+          <button type="button" data-modo="carro" aria-pressed="false">🚗 En carro</button>
+        </div>
+        <div id="ruta-cargando" class="muted" hidden>Calculando la ruta más corta…</div>
+        <div id="ruta-ok" hidden>
+          <div class="dist-grande" id="r-dist"></div>
+          <div class="muted" id="r-tiempo"></div>
+          <div class="muted small" id="r-recta"></div>
+        </div>
+        <div id="ruta-error" class="nota-error" hidden></div>
+        <div id="ruta-aviso" class="nota-aviso" hidden></div>
+      </div>
+
+      <dl class="detalle" id="d-datos"></dl>
+      <p id="d-descripcion"></p>
+      <a id="d-osm" class="btn" target="_blank" rel="noopener">Ver indicaciones en OpenStreetMap</a>
+    </section>
+  </aside>
+</div>
+<p class="muted small" id="actualizado" aria-live="off"></p>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='vendor/leaflet/leaflet.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
+{% endblock %}

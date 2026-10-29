@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}¿Qué deberíamos colocar?{% endblock %}
+{% block contenido %}
+<h1>¿Qué deberíamos colocar?</h1>
+<p class="lead">Este portal es nuevo y queremos construirlo con ustedes. Cuéntenos qué sitios, servicios o información le gustaría encontrar aquí. Sus respuestas nos ayudan a decidir qué agregar primero.</p>
+
+{% if form_embed %}
+  <div class="form-caja">
+    <iframe src="{{ form_embed }}" title="Formulario de opinión" loading="lazy">Cargando formulario…</iframe>
+  </div>
+  {% if form_enlace %}<p class="muted">¿No se ve bien? <a href="{{ form_enlace }}" target="_blank" rel="noopener">Ábralo en otra pestaña</a>.</p>{% endif %}
+{% elif form_enlace %}
+  <p><a class="btn" href="{{ form_enlace }}" target="_blank" rel="noopener">Responder el formulario</a></p>
+{% else %}
+  <div class="aviso"><strong>Formulario pendiente de conectar.</strong> El administrador debe pegar la URL del Google Form en <code>GOOGLE_FORM_URL</code> (archivo <code>config.py</code>). Los pasos están en el README.</div>
+{% endif %}
+{% endblock %}

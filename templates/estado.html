@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Estado del sistema{% endblock %}
+{% block contenido %}
+<h1>Estado del sistema</h1>
+<div class="cards">
+  <div class="card">
+    <h2>Sitios de interés</h2>
+    <p>Fuente: <strong>{{ s.fuente or '—' }}</strong>
+      <span class="badge {{ 'badge-bad' if s.error else 'badge-ok' }}">{{ 'con problemas' if s.error else 'al día' }}</span></p>
+    {% if s.hace_s is not none %}<p class="muted small">Última lectura buena hace {{ s.hace_s }} s · se consulta a Google cada {{ cache }} s como máximo.</p>{% endif %}
+    {% if s.error %}<p class="nota-error">{{ s.error }}</p>{% endif %}
+    {% if s.stats %}
+    <dl class="detalle">
+      <dt>Publicados en el mapa</dt><dd>{{ s.stats.publicadas }}</dd>
+      <dt>Filas leídas</dt><dd>{{ s.stats.leidas }}</dd>
+      <dt>{{ 'Pendientes de aprobación' if s.requiere_aprobacion else 'Ocultas con «NO»' }}</dt><dd>{{ s.stats.ocultas }}</dd>
+      <dt>Descartadas por coordenadas inválidas</dt><dd>{{ s.stats.sin_coordenadas }}</dd>
+      <dt>Descartadas por estar muy lejos</dt><dd>{{ s.stats.fuera_de_zona }}</dd>
+    </dl>
+    {% endif %}
+    {% if not s.google %}<p class="aviso">Google Sheets <strong>no está configurado</strong>: se usa el Excel local de respaldo. Vea GUIA_GOOGLE_SHEETS.md.</p>{% endif %}
+  </div>
+  <div class="card">
+    <h2>Rutas (Dijkstra)</h2>
+    <p>Punto central: <code>{{ centro[0] }}, {{ centro[1] }}</code>
+      <span class="badge {{ 'badge-ok' if confirmado else 'badge-warn' }}">{{ 'confirmado' if confirmado else 'provisional' }}</span></p>
+    <p>Red vial: <span class="badge {{ 'badge-ok' if red.disponible else 'badge-bad' }}">{{ 'lista' if red.disponible else 'no disponible' }}</span></p>
+    <p class="muted small">{{ red.mensaje }}{% if red.disponible %} ({{ red.nodos }} esquinas){% endif %}</p>
+  </div>
+</div>
+{% endblock %}

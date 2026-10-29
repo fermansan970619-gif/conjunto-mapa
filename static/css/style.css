@@ -1,0 +1,78 @@
+/* ===== Paleta de Terra Castilla (tomada del logo): cambie aquí los colores ===== */
+:root {
+  --verde-osc: #13402A; --verde: #596E3C; --beige: #D5CEB6; --beige-suave: #EDEBDD; --carbon: #393A3A;
+  --texto: #2B2E2B; --gris: #5F625C; --borde: #E1DCCB; --fondo: #F7F5EE; --blanco: #fff;
+  --ok: #3E6B2C; --warn: #A8650A; --bad: #A33A2B; --radio: 12px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--texto); background: var(--fondo); line-height: 1.6; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+main.wrap { padding-top: 1.2rem; padding-bottom: 2.5rem; min-height: 70vh; }
+a { color: var(--verde); }
+h1 { font-size: 1.6rem; line-height: 1.25; margin: .2rem 0 .8rem; color: var(--verde-osc); }
+h2 { font-size: 1.2rem; margin: .4rem 0; }
+.lead { color: var(--gris); font-size: 1.05rem; max-width: 70ch; }
+.muted { color: var(--gris); } .small { font-size: .85rem; }
+code { background: var(--beige-suave); padding: .1rem .35rem; border-radius: 5px; }
+
+/* Cabecera y pie */
+.site-header { background: var(--blanco); border-bottom: 3px solid var(--beige); position: sticky; top: 0; z-index: 1000; }
+.header-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; min-height: 72px; padding-top: .35rem; padding-bottom: .35rem; }
+.brand { display: flex; gap: .8rem; align-items: center; text-decoration: none; color: var(--carbon); }
+.brand-logo { height: 52px; width: auto; }
+.brand-name strong { display: block; font-weight: 400; letter-spacing: .2em; font-size: 1.05rem; line-height: 1.1; }
+.brand-name em { font-style: normal; font-weight: 600; color: var(--verde-osc); }
+.brand-name small { display: block; color: var(--gris); font-size: .72rem; margin-top: .15rem; }
+.nav { display: flex; gap: .3rem; flex-wrap: wrap; }
+.nav a { color: var(--carbon); text-decoration: none; padding: .5rem .8rem; border-radius: 8px; font-weight: 500; }
+.nav a:hover { background: var(--beige-suave); color: var(--verde-osc); }
+.nav a.active { background: var(--verde-osc); color: #fff; }
+.site-footer { background: var(--verde-osc); color: #D9DFD2; padding: 1.2rem 0; font-size: .88rem; border-top: 5px solid var(--beige); }
+.site-footer a { color: var(--beige); }
+.footer-in { display: flex; gap: 1rem; align-items: center; }
+.footer-in img { background: var(--fondo); border-radius: 8px; padding: 4px 6px; flex: none; }
+.footer-in p { margin: .2rem 0; }
+
+/* Mapa + panel derecho */
+.filtros { display: flex; flex-wrap: wrap; gap: .4rem; margin: .8rem 0; }
+.chip { border: 1px solid var(--borde); background: #fff; border-radius: 999px; padding: .35rem .9rem; cursor: pointer; font: inherit; font-size: .9rem; }
+.chip:hover { border-color: var(--verde); }
+.chip.active { background: var(--verde-osc); color: #fff; border-color: var(--verde-osc); }
+.mapa-layout { display: grid; grid-template-columns: 1fr 380px; gap: 1rem; align-items: start; }
+#mapa { height: 640px; border-radius: var(--radio); border: 1px solid var(--borde); z-index: 1; }
+.panel { background: var(--blanco); border: 1px solid var(--borde); border-top: 4px solid var(--beige); border-radius: var(--radio); padding: 1rem; height: 640px; overflow-y: auto; }
+.panel[hidden], [hidden] { display: none !important; }
+.lista-sitios { list-style: none; margin: .6rem 0 0; padding: 0; }
+.lista-sitios .item { width: 100%; text-align: left; font: inherit; background: var(--fondo); border: 1px solid var(--borde); border-radius: 10px; padding: .6rem .8rem; margin-bottom: .5rem; cursor: pointer; }
+.lista-sitios .item:hover, .lista-sitios .item:focus-visible { border-color: var(--verde); outline: none; }
+.lista-sitios small { display: block; color: var(--gris); }
+.volver { background: none; border: 0; color: var(--verde); font: inherit; cursor: pointer; padding: 0 0 .6rem; }
+.distancia { background: var(--beige-suave); border-radius: 10px; padding: .8rem; margin: .8rem 0; }
+.modos { display: flex; gap: .4rem; margin-bottom: .6rem; }
+.modos button { flex: 1; font: inherit; padding: .4rem; border-radius: 8px; border: 1px solid var(--beige); background: #fff; cursor: pointer; }
+.modos button[aria-pressed="true"] { background: var(--verde-osc); color: #fff; border-color: var(--verde-osc); }
+.dist-grande { font-size: 1.9rem; font-weight: 800; color: var(--verde-osc); line-height: 1.1; }
+.nota-error { color: var(--bad); font-size: .92rem; } .nota-aviso { color: var(--warn); font-size: .88rem; margin-top: .4rem; }
+.detalle { margin: 0 0 .8rem; } .detalle dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--verde); font-weight: 700; margin-top: .6rem; }
+.detalle dd { margin: 0; word-break: break-word; }
+.pin { font-size: 1.5rem; filter: drop-shadow(0 1px 2px rgba(0,0,0,.45)); display: block; line-height: 1; }
+.pin.sel { transform: scale(1.35); filter: drop-shadow(0 0 4px var(--verde-osc)); }
+.btn { display: inline-block; background: var(--verde); color: #fff; border: 0; border-radius: 10px; padding: .6rem 1.1rem; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; }
+.btn:hover { background: var(--verde-osc); }
+.badge { display: inline-block; font-size: .78rem; font-weight: 600; padding: .1rem .6rem; border-radius: 999px; background: var(--beige-suave); color: var(--verde-osc); border: 1px solid var(--beige); }
+.badge-ok { background: #DDEBD3; color: var(--ok); border-color: #DDEBD3; } .badge-warn { background: #F8E5C4; color: var(--warn); border-color: #F8E5C4; } .badge-bad { background: #F3D9D4; color: var(--bad); border-color: #F3D9D4; }
+@media (max-width: 900px) { .mapa-layout { grid-template-columns: 1fr; } #mapa { height: 420px; } .panel { height: auto; max-height: none; } }
+
+/* Opinión, avisos, admin */
+.form-caja iframe { width: 100%; height: 1300px; border: 1px solid var(--borde); border-radius: var(--radio); background: #fff; }
+.aviso { background: #F4F0E0; border: 1px solid var(--beige); border-radius: 10px; padding: .7rem 1rem; margin: .8rem 0; }
+.flash { padding: .8rem 1rem; border-radius: 10px; margin-bottom: 1rem; } .flash-ok { background: #DDEBD3; color: var(--ok); } .flash-error { background: #F3D9D4; color: var(--bad); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+.card { background: #fff; border: 1px solid var(--borde); border-top: 4px solid var(--beige); border-radius: var(--radio); padding: 1.1rem; }
+label { display: block; margin: .6rem 0; font-weight: 600; font-size: .9rem; }
+label input, label select { display: block; width: 100%; margin-top: .25rem; padding: .5rem; border: 1px solid var(--borde); border-radius: 8px; font: inherit; font-weight: 400; }
+
+/* Barra superior del mapa, aviso de sitios nuevos */
+.barra-mapa { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.aviso-nuevo { background: var(--verde-osc); color: #fff; border-radius: 10px; padding: .6rem 1rem; margin-bottom: .8rem; animation: entra .3s ease; }
+@keyframes entra { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
