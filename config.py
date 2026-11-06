@@ -1,9 +1,9 @@
 """Configuración central del portal. Edite SOLO este archivo para ajustar lo principal."""
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from pathlib import Path
 
-load_dotenv()  # carga variables de entorno desde .env si existe
+#load_dotenv()  # carga variables de entorno desde .env si existe
 
 BASE_DIR = Path(__file__).resolve().parent
 
